@@ -5,6 +5,7 @@ from __future__ import print_function
 import os
 import re
 import urllib
+from subprocess import call
 
 
 def getSequenceDiagram(text, outputFile, style='default'):
@@ -29,6 +30,8 @@ def getSequenceDiagram(text, outputFile, style='default'):
 
     urllib.urlretrieve("http://www.websequencediagrams.com/" + m.group(0),
                        outputFile)
+    #   Chop output image
+    call(["convert", outputFile,"-gravity","South","-chop","0x14", outputFile])                       
     return True
 
 #traditional
